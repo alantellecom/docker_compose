@@ -9,6 +9,17 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: alan123
       POSTGRES_DB: teste_db
+  db-migration:
+    image: alanlab/cluster_app:banco_v4
+    command: ["./wait-for", "--timeout=300", "database:5432", "--", "bin/rails", "db:migrate", "RAILS_ENV=", "production"]
+    environment:
+      DATABASE_HOST: database 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: alan123
+      POSTGRES_DB: teste_db
+    deploy:
+      restart_policy:
+        condition: none
   database:
     image: postgres
     environment:
