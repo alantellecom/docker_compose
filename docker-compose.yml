@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web:
+    image: alanlab/cluster_app:banco_v2
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_HOST: database 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: alan123
+      POSTGRES_DB: teste_db
+  database:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: alan123
+      POSTGRES_DB: teste_db
