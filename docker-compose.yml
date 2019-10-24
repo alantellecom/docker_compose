@@ -1,7 +1,8 @@
 version: '3'
 services:
   web:
-    image: alanlab/cluster_app:banco_v2
+    image: alanlab/cluster_app:banco_v3
+    command: ["./wait-for", "--timeout=300", "database:5432", "--","bin/rails", "db:migrate", "-e", "production"]
     ports:
       - "3000:3000"
     environment:
