@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: alanlab/cluster_app:banco_v4
+    image: alanlab/cluster_app:banco_v5
     ports:
       - "80:3000"
     environment:
@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: alan123
       POSTGRES_DB: teste_db
   db-migration:
-    image: alanlab/cluster_app:banco_v4
+    image: alanlab/cluster_app:banco_v5
     command: ["./wait-for", "--timeout=300", "database:5432", "--", bin/rails", "db:migrate"]
     environment:
       DATABASE_HOST: database 
