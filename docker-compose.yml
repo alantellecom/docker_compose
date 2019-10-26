@@ -19,8 +19,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: alan123
       POSTGRES_DB: teste_db
-    links:
-      - database
     depends_on:
       - database  
     deploy:
