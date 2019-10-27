@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: alan123
       POSTGRES_DB: teste_db
-      RAILS_MASTER_KEY:
+      RAILS_MASTER_KEY: cccf2d47e4bdac568774145b8067f661
     depends_on:
       - database
   db-migration:
