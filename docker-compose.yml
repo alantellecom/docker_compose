@@ -1,27 +1,21 @@
 version: '3'
 services:
   web:
-    image: alanlab/cluster_app:banco_v5
+    image: alanlab/app_loja:v2
+
     ports:
       - "80:3000"
-    environment:
-      DATABASE_HOST: database 
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: alan123
-      POSTGRES_DB: teste_db
-      RAILS_MASTER_KEY: cccf2d47e4bdac568774145b8067f661
-    volumes:
-      - logs:/log
     depends_on:
       - database
-  db-migration:
-    image: alanlab/cluster_app:banco_v5
-    command: ["./wait-for", "--timeout=300", "database:5432", "--", "bin/rails", "db:migrate", "RAILS_ENV=production"]
     environment:
-      DATABASE_HOST: database 
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: alan123
-      POSTGRES_DB: teste_db
+      RAILS_ENV: production
+    volumes:
+      - storage:/media
+  db-migration:
+    image: alanlab/app_loja:v2
+    command: ["./wait-for", "--timeout=300", "database:5432", "--", "bin/rails", "db:create", "db:migrate"]
+    environment:
+      RAILS_ENV: production
     depends_on:
       - database  
     deploy:
@@ -29,11 +23,11 @@ services:
         condition: none
   database:
     image: postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: alan123
-      POSTGRES_DB: teste_db
     volumes:
       - db_data:/var/lib/postgresql/data
+    environment:
+      RAILS_ENV: production
 volumes:
   db_data:
+  storage:  
+
